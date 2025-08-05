@@ -1,4 +1,10 @@
 import { Clock } from "lucide-react";
+/**
+ * InstructionsSection displays a list of cooking instructions for a given meal.
+ * @param {Object} props
+ * @param {Object} props.instructions - The instructions string for the meal, which may contain multiple lines.
+ * Each line is separated by a newline character.
+ */
 
 const InstructionsSection = ({ instructions }) => {
     const instructionsList = instructions ? instructions.split("\n") : [];

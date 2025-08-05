@@ -1,5 +1,11 @@
 import { ChefHat } from "lucide-react";
-export default function IngredientsSection({ meal }) {
+/**
+ * IngredientsSection displays a list of ingredients and their measures for a given meal.
+ * @param {Object} props
+ * @param {Object} props.meal - The meal object containing ingredient and measure properties.
+ */
+
+const IngredientsSection = ({ meal }) => {
     const ingredients = Object.keys(meal)
         .filter(
             (key) =>
@@ -51,3 +57,5 @@ export default function IngredientsSection({ meal }) {
         </div>
     );
 }
+
+export default IngredientsSection;
