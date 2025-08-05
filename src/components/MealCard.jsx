@@ -1,4 +1,3 @@
-// src/components/MealCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -11,7 +10,7 @@ const MealCard = ({ meal }) => {
   const { idMeal, strMeal, strMealThumb, strArea, strCategory } = meal;
 
   return (
-    <Card className="max-w-xs overflow-hidden rounded-xl border-2 border-yellow-500 transition-all duration-500 ease-in-out transform hover:shadow-lg hover:translate-y-[-5px] group">
+    <Card className="max-w-xs overflow-hidden rounded-xl border-2 border-b-orange-400 transition-all duration-500 ease-in-out transform hover:shadow-lg hover:translate-y-[-5px] group">
 
       {/* Title Section */}
       <div className="p-4 flex flex-col items-start gap-1">
