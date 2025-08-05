@@ -1,4 +1,3 @@
-// src/pages/RecipesPage.jsx
 import React, { useState, useEffect } from 'react';
 import MealCard from '@/components/MealCard';
 import { getMealsByFirstLetter } from '@/services/mealApi';
