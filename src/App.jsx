@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
 import RecipesPage from '@/pages/RecipesPage';
-
+import MealDetail from './pages/MealDetail';
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recipes" element={<RecipesPage />} />
+          <Route path="/meals/:id" element={<MealDetail />} />
         </Routes>
       </div>
     </Router>
