@@ -22,6 +22,23 @@ export const getMealById = async (id) => {
   }
 };
 
+export const getMealsListById = async (ids) => {
+  const meals = [];
+  try {
+    for(const id of ids) {
+      const meal = await getMealById(id);
+      if (meal) {
+        meals.push(meal);
+      }
+    }
+    return meals;
+  }
+  catch(error){
+    console.error("Error fetching meals list by IDs:", error);
+    return [];
+  }
+}
+
 export const getMealsByCategory = async (category) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/filter.php?c=${category}`);

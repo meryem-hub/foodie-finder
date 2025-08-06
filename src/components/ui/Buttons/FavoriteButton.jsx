@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Buttons/button';
 
-export const FavoriteButton = ({ meal }) => {
-  const mealId = meal.idMeal;
+export const FavoriteButton = ({ mealId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
