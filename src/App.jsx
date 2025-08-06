@@ -4,8 +4,7 @@ import Home from '@/pages/Home';
 import RecipesPage from '@/pages/RecipesPage';
 import HeroSection from './components/Hero';
 import MealDetail from './pages/MealDetail';
-
-
+import FavoritesPage from './pages/FavoritesPage'; 
 function App() {
   return (
     <Router>
@@ -19,6 +18,7 @@ function App() {
           } />
           <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/meals/:id" element={<MealDetail />} />
+          <Route path="/favorites" element={<FavoritesPage />} />  
         </Routes>
       </div>
     </Router>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Buttons/button';
 import { Shuffle, Flag, Tag, Heart } from 'lucide-react';
 import heroImage from '../assets/images/image.png';
 

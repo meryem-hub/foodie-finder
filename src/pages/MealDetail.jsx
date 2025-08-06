@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMealById } from "@/services/mealApi";
 import { Flag, Tag, Heart, ArrowLeft } from "lucide-react";
-
+import { FavoriteButton } from '@/components/ui/Buttons/FavoriteButton';
 import ShareButton from "@/components/ui/Buttons/ShareButton";
 import IngredientsSection from "@/components/MealDetail/IngredientsSection";
 import VideoSection from "@/components/MealDetail/VideoSection";
@@ -119,11 +119,10 @@ const MealDetail = () => {
 
                         {/* Action buttons  */}
                         <div className="flex gap-4">
-                            <button className="flex px-4 py-2 text-xs bg-white rounded-sm border-2 border-yellow-500 hover:bg-gray-100 transition-colors font-medium">
-                                <Heart className="mr-2 h-4 w-4" />
-                                Add to Favorites
-                            </button>
-                            <ShareButton className={"text-black"} />
+                       <div className="flex gap-4">
+  <FavoriteButton meal={meal} />
+  <ShareButton className={"text-black"} />
+</div>
                         </div>
 
                         <IngredientsSection meal={meal} />
