@@ -17,7 +17,7 @@ const RecipesPage = () => {
         } else {
           setMeals([]);
         }
-      } catch (err) {
+      } catch {
         setError("Failed to fetch meals. Please try again later.");
       } finally {
         setLoading(false);

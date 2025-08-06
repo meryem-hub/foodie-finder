@@ -36,7 +36,7 @@ function Favorites() {
           {favorites.map((meal) => (
             <div
               key={meal.idMeal}
-              className="relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="relative rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
             >
               <MealCard meal={meal} />
               <button
