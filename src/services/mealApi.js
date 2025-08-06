@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
@@ -28,6 +28,17 @@ export const getMealsByCategory = async (category) => {
     return response.data.meals;
   } catch (error) {
     console.error("Error fetching meals by category:", error);
+    return [];
+  }
+};
+
+
+export const getMealCategories = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/categories.php`);
+    return response.data.categories; // array of category objects
+  } catch (error) {
+    console.error("Error fetching meal categories:", error);
     return [];
   }
 };
