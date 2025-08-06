@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/Buttons/button';
-import { Shuffle, Flag, Tag, Heart } from 'lucide-react';
-import heroImage from '../assets/images/image.png';
+import React, { useState } from "react";
+import { Search, Globe, Clock, Shuffle, Flag, Tag, Heart } from "lucide-react";
+import { Button } from "@/components/ui/Buttons/button";
+import heroImage from "../assets/images/image.png";
 
 const getRandomMeal = async () => {
   try {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+    const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
     const data = await response.json();
     return data.meals ? data.meals[0] : null;
   } catch (error) {
@@ -46,7 +43,7 @@ const VideoSection = ({ url }) => {
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold mb-4">Video Instructions</h2>
-      <div className="relative w-full pb-[30%]"> 
+      <div className="relative w-full pb-[30%]">
         <iframe
           className="absolute inset-0 w-full h-[78vh] rounded-lg"
           src={url.replace("watch?v=", "embed/")}
@@ -79,7 +76,7 @@ const HeroSection = () => {
     setLoading(true);
     setError(null);
     setShowMeal(false);
-    
+
     try {
       const randomMeal = await getRandomMeal();
       if (randomMeal) {
@@ -97,6 +94,7 @@ const HeroSection = () => {
 
   return (
     <>
+      {/* Hero Banner */}
       <section className="relative h-[84vh] w-full overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -135,6 +133,7 @@ const HeroSection = () => {
         </div>
       </section>
 
+      {/* Surprise Meal Display */}
       {showMeal && (
         <main className="p-6 w-full my-8">
           {loading ? (
@@ -148,7 +147,6 @@ const HeroSection = () => {
           ) : (
             <div className="flex flex-col gap-8 py-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-w-full">
-                {/* meal image */}
                 <div>
                   {meal?.strMealThumb ? (
                     <img
@@ -163,13 +161,9 @@ const HeroSection = () => {
                   )}
                 </div>
 
-                {/* Meal Detail Section */}
                 <div className="flex flex-col gap-6">
-                  <h1 className="text-4xl font-bold">
-                    {meal?.strMeal || "Meal Name Unavailable"}
-                  </h1>
+                  <h1 className="text-4xl font-bold">{meal?.strMeal || "Meal Name Unavailable"}</h1>
 
-                  {/* meal details */}
                   <div className="flex flex-wrap gap-2 text-sm font-medium">
                     {meal?.strArea && (
                       <span className="inline-flex items-center bg-yellow-500 text-white rounded-sm px-3 py-1">
@@ -185,14 +179,11 @@ const HeroSection = () => {
                     )}
                   </div>
 
-                  {/* Action buttons */}
                   <div className="flex gap-4">
                     <button className="flex px-4 py-2 text-xs bg-white rounded-sm border-2 border-yellow-500 hover:bg-gray-100 transition-colors font-medium">
                       <Heart className="mr-2 h-4 w-4" />
                       Add to Favorites
                     </button>
-                    {/* Placeholder for ShareButton component */}
-                    {/* <ShareButton className={"text-black"} /> */}
                   </div>
                   <IngredientsSection meal={meal} />
                 </div>
@@ -204,6 +195,37 @@ const HeroSection = () => {
           )}
         </main>
       )}
+
+      {/* Homepage Stats */}
+      <section className="flex flex-col items-center justify-center py-12 px-4 text-center">
+        <h2 className="text-xl md:text-2xl font-semibold mb-2">
+          Discover delicious meals from around the world.
+        </h2>
+        <p className="text-gray-600 mb-8 max-w-2xl">
+          Search by ingredient, browse categories, or find your next favorite dish from our
+          collection of thousands of recipes!
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+          <div className="bg-yellow-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+            <Search className="w-12 h-12 text-yellow-500 mb-4" />
+            <h3 className="text-2xl font-bold text-gray-800">1000+ Recipes</h3>
+            <p className="text-gray-600">From around the world</p>
+          </div>
+
+          <div className="bg-orange-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+            <Globe className="w-12 h-12 text-orange-500 mb-4" />
+            <h3 className="text-2xl font-bold text-gray-800">25+ Countries</h3>
+            <p className="text-gray-600">International cuisine</p>
+          </div>
+
+          <div className="bg-red-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+            <Clock className="w-12 h-12 text-red-500 mb-4" />
+            <h3 className="text-2xl font-bold text-gray-800">Step-by-step</h3>
+            <p className="text-gray-600">Detailed instructions</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
