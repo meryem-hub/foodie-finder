@@ -1,35 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/Buttons/button';
+import { useEffect, useState, useContext } from "react";
+import { Button } from "@/components/ui/Buttons/button";
 
-export const FavoriteButton = ({ mealId }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+import { FavoriteMealsContext } from "@/contexts/FavouriteMealsContext";
 
-  useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setIsFavorite(favorites.includes(mealId));
-  }, [mealId]);
+export const FavoriteButton = ({ meal }) => {
+    const mealId = meal.idMeal;
 
-  const toggleFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    let updated;
+    const { favoriteMeals, setFavoriteMeals, storeFavoriteMeals } =
+        useContext(FavoriteMealsContext);
 
-    if (favorites.includes(mealId)) {
-      updated = favorites.filter(id => id !== mealId);
-    } else {
-      updated = [...favorites, mealId];
-    }
+    const [isFavorite, setIsFavorite] = useState(false);
 
-    localStorage.setItem('favorites', JSON.stringify(updated));
-    setIsFavorite(!isFavorite);
-  };
+    useEffect(() => {
+        setIsFavorite(Boolean(favoriteMeals[mealId]));
+    }, [mealId]);
 
-  return (
-    <Button
-      variant={isFavorite ? 'destructive' : 'outline'}
-      onClick={toggleFavorite}
-      className="flex items-center gap-2 px-4 py-2 text-xs font-medium"
-    >
-      {isFavorite ? '❤️ Favorited' : '🤍 Add to Favorites'}
-    </Button>
-  );
+    const toggleFavorite = () => {
+        setFavoriteMeals(prev=>{
+          let updated = {...prev};
+          if(favoriteMeals[mealId]){
+            delete favoriteMeals[mealId]
+          }
+          else{
+              updated[mealId] = meal
+          }
+          storeFavoriteMeals(updated.values())
+          return updated;
+        })
+        setIsFavorite(!isFavorite);
+    };
+
+    return (
+        <Button
+            variant={isFavorite ? "destructive" : "outline"}
+            onClick={toggleFavorite}
+            className="flex items-center gap-2 px-4 py-2 text-xs font-medium"
+        >
+            {isFavorite ? "❤️ Favorited" : "🤍 Add to Favorites"}
+        </Button>
+    );
 };
