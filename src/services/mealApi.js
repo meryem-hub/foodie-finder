@@ -31,3 +31,14 @@ export const getMealsByCategory = async (category) => {
     return [];
   }
 };
+
+export const getRandomMeal = async () =>{
+  try{
+    const response = await axios.get(`${API_BASE_URL}/random.php`)
+    return response.data.meals[0];
+  }
+  catch(error){
+    console.error("Error generating random meal:", error);
+    return null;
+  }
+}

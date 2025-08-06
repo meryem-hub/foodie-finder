@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "./button";
 import { Share2 } from "lucide-react";
 
-const ShareButton = ({className}) => {
+export const ShareButton = ({ className }) => {
     const handleShare = () => {
         const url = window.location.href;
         if (navigator.share) {
@@ -19,13 +19,12 @@ const ShareButton = ({className}) => {
 
     return (
         <Button
-            className={`flex px-4 py-2 text-xs bg-white rounded-sm border-2 border-yellow-500 hover:bg-gray-100 transition-colors ${className}`}
+            variant={"outline"}
             onClick={handleShare}
+            className="flex items-center gap-2 px-4 py-2 text-xs font-medium"
         >
             <Share2 className="mr-2 h-4 w-4" />
             Share
         </Button>
     );
 };
-
-export default ShareButton;
