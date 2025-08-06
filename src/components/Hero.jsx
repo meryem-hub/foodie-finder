@@ -196,36 +196,36 @@ const HeroSection = () => {
         </main>
       )}
 
-      {/* Homepage Stats */}
-      <section className="flex flex-col items-center justify-center py-12 px-4 text-center">
-        <h2 className="text-xl md:text-2xl font-semibold mb-2">
-          Discover delicious meals from around the world.
-        </h2>
-        <p className="text-gray-600 mb-8 max-w-2xl">
-          Search by ingredient, browse categories, or find your next favorite dish from our
-          collection of thousands of recipes!
-        </p>
+    <section className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gray-50">
+  <div className="max-w-3xl mb-12">
+    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+      Explore a World of Flavors 
+    </h2>
+    <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
+      Browse our extensive collection of recipes from across the globe, find your next favorite dish, and cook with confidence using our easy-to-follow instructions.
+    </p>
+  </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-          <div className="bg-yellow-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
-            <Search className="w-12 h-12 text-yellow-500 mb-4" />
-            <h3 className="text-2xl font-bold text-gray-800">1000+ Recipes</h3>
-            <p className="text-gray-600">From around the world</p>
-          </div>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+      <Search className="w-14 h-14 text-yellow-500 mb-4" />
+      <h3 className="text-3xl font-bold text-gray-800">1000+ Recipes</h3>
+      <p className="text-gray-500 mt-2">from every corner of the world</p>
+    </div>
 
-          <div className="bg-orange-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
-            <Globe className="w-12 h-12 text-orange-500 mb-4" />
-            <h3 className="text-2xl font-bold text-gray-800">25+ Countries</h3>
-            <p className="text-gray-600">International cuisine</p>
-          </div>
+    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+      <Globe className="w-14 h-14 text-orange-500 mb-4" />
+      <h3 className="text-3xl font-bold text-gray-800">25+ Countries</h3>
+      <p className="text-gray-500 mt-2">savor international cuisine</p>
+    </div>
 
-          <div className="bg-red-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
-            <Clock className="w-12 h-12 text-red-500 mb-4" />
-            <h3 className="text-2xl font-bold text-gray-800">Step-by-step</h3>
-            <p className="text-gray-600">Detailed instructions</p>
-          </div>
-        </div>
-      </section>
+    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+      <Clock className="w-14 h-14 text-red-500 mb-4" />
+      <h3 className="text-3xl font-bold text-gray-800">Step-by-step</h3>
+      <p className="text-gray-500 mt-2">detailed, easy instructions</p>
+    </div>
+  </div>
+</section>
     </>
   );
 };
