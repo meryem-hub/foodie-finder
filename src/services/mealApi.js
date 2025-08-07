@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
@@ -32,13 +32,22 @@ export const getMealsByCategory = async (category) => {
   }
 };
 
-export const getRandomMeal = async () =>{
-  try{
-    const response = await axios.get(`${API_BASE_URL}/random.php`)
+export const getRandomMeal = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/random.php`);
     return response.data.meals[0];
-  }
-  catch(error){
+  } catch (error) {
     console.error("Error generating random meal:", error);
     return null;
   }
-}
+};
+
+export const getMealCategories = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/categories.php`);
+    return response.data.categories;
+  } catch (error) {
+    console.error("Error fetching meal categories:", error);
+    return [];
+  }
+};
