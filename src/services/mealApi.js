@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = "https://www.themealdb.com/api/json/v1/1";
 
@@ -8,6 +8,15 @@ export const getMealsByFirstLetter = async (letter) => {
     return response.data.meals;
   } catch (error) {
     console.error("Error fetching meals by first letter:", error);
+    return [];
+  }
+};
+export const getMealCategories = async () => {
+  try {
+    const response = await axios.get("https://www.themealdb.com/api/json/v1/1/categories.php");
+    return response.data.categories;
+  } catch (error) {
+    console.error("Error fetching meal categories:", error);
     return [];
   }
 };
@@ -44,13 +53,42 @@ export const getMealsByCategory = async (category) => {
   }
 };
 
-export const getRandomMeal = async () =>{
-  try{
-    const response = await axios.get(`${API_BASE_URL}/random.php`)
-    return response.data.meals[0];
+export const getCategories = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/categories.php`);
+    return response.data.categories || [];
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
   }
-  catch(error){
+};
+
+export const getCountries = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/list.php?a=list`);
+    return response.data.meals || [];
+  } catch (error) {
+    console.error("Error fetching countries:", error);
+    return [];
+  }
+};
+
+export const getMealsByCountry = async (country) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/filter.php?a=${country}`);
+    return response.data.meals;
+  } catch (error) {
+    console.error("Error fetching meals by country:", error);
+    return [];
+  }
+};
+
+export const getRandomMeal = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/random.php`);
+    return response.data.meals[0];
+  } catch (error) {
     console.error("Error generating random meal:", error);
     return null;
   }
-}
+};
