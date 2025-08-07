@@ -6,13 +6,14 @@ import HeroSection from './components/Hero';
 import MealDetail from './pages/MealDetail';
 import FavoritesPage from './pages/FavoritesPage';
 import Footer from './components/Footer';
+import Header from './components/Header';
 import NotFound from './pages/NotFound';
-
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+        <Header /> 
         <Routes>
           <Route path="/" element={
             <>
@@ -21,13 +22,13 @@ function App() {
             </>
           } />
           <Route path="/recipes" element={<RecipesPage />} />
-<Route path="/meals/:id" element={<MealDetail />} />
-<Route path="/meals/random" element={<MealDetail />} />
+          <Route path="/meals/:id" element={<MealDetail />} />
+          <Route path="/meals/random" element={<MealDetail />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path='*' element={<NotFound/>}/>
+          <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </div>
-      <Footer/>
     </Router>
   );
 }
