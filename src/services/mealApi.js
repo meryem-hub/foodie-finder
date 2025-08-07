@@ -80,3 +80,23 @@ export const getRandomMeal = async () => {
     return null;
   }
 };
+export const getMealsByName = async (name) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/search.php?s=${name}`);
+    return response.data.meals;
+  } catch (error) {
+    console.error("Error fetching meals by name:", error);
+    return [];
+  }
+};
+
+export const getMealsByIngredient = async (ingredient) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/filter.php?i=${ingredient}`);
+    console.log("Fetched meals by ingredient:", response.data.meals);
+    return response.data.meals;
+  } catch (error) {
+    console.error("Error fetching meals by ingredient:", error);
+    return [];
+  }
+};

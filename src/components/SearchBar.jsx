@@ -24,7 +24,7 @@ function SearchBar() {
         </span>
         <Input
           type="search"
-          placeholder="Search category..."
+          placeholder="Search by name and ingredient"
           aria-label="Search category"
           className="pl-10 border-none focus:ring-0"
           value={searchTerm}
