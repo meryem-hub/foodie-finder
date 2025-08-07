@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import SearchBar from "./SearchBar";
-import {
-  getCategories,
-  getCountries,
-} from "../services/mealApi";
+import { getCategories, getCountries } from "../services/mealApi";
 
 function Header() {
   const [categories, setCategories] = useState([]);
@@ -26,11 +23,10 @@ function Header() {
   }, []);
 
   const handleCategoryClick = (cat) => {
-  setShowCategories(false);
-  setMobileMenuOpen(false);
-  navigate(`/?search=${cat}`);
-};
-
+    setShowCategories(false);
+    setMobileMenuOpen(false);
+    navigate(`/?search=${cat}`);
+  };
 
   const handleCountryClick = (country) => {
     setShowCountries(false);
@@ -61,7 +57,43 @@ function Header() {
               >
                 Category
               </button>
-             
+              {showCategories && (
+                // <div className="bg-gray-50 border-t px-4 py-4 overflow-x-auto flex gap-4">
+                //   {categories.map((cat) => (
+                //     <div
+                //       key={cat.idCategory}
+                //       onClick={() => handleCategoryClick(cat.strCategory)}
+                //       className="cursor-pointer flex flex-col items-center hover:scale-105 transition"
+                //     >
+                //       <img
+                //         src={cat.strCategoryThumb}
+                //         alt={cat.strCategory}
+                //         className="w-20 h-20  object-cover rounded-full border"
+                //       />
+                //       <p className="text-sm mt-2">{cat.strCategory}</p>
+                //     </div>
+                //   ))}
+                // </div>
+                <div
+                  className="absolute  left-0 mt-2 w-56 bg-white shadow-lg rounded p-3 overflow-y-auto z-50"
+                  style={{ maxHeight: "300px" }}
+                >
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.idCategory}
+                      onClick={() => handleCategoryClick(cat.strCategory)}
+                      className=" w-full flex gap-2 text-left px-2 py-1 hover:text-[#FFD700] rounded"
+                    >
+                      <img
+                        src={cat.strCategoryThumb}
+                        alt={cat.strCategory}
+                        className="w-12 h-12  object-cover rounded-full border"
+                      />
+                      <p className="text-sm mt-2">{cat.strCategory}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Country */}
@@ -123,25 +155,25 @@ function Header() {
             <div>
               <button
                 onClick={() => setShowCategories(!showCategories)}
-                className="w-full text-left hover:text-orange-500"
+                className="w-full text-left hover:text-[#FFD700]"
               >
                 Category
               </button>
               {showCategories && (
-                <div className="mt-2 flex flex-wrap gap-4">
+                <div className="mt-2 mx-5 shadow flex flex-col gap-1 max-h-60 overflow-y-auto">
                   {categories.map((cat) => (
-                    <div
+                    <button
                       key={cat.idCategory}
                       onClick={() => handleCategoryClick(cat.strCategory)}
-                      className="cursor-pointer flex flex-col items-center hover:scale-105 transition"
+                      className="flex gap-2 text-left hover:bg-[#FFD700] rounded px-2 py-1"
                     >
                       <img
                         src={cat.strCategoryThumb}
                         alt={cat.strCategory}
-                        className="w-16 h-16 object-cover rounded-full border"
+                        className="w-12 h-12  object-cover rounded-full border"
                       />
-                      <p className="text-xs mt-1">{cat.strCategory}</p>
-                    </div>
+                      <p className="text-sm mt-2">{cat.strCategory}</p>
+                    </button>
                   ))}
                 </div>
               )}
@@ -155,7 +187,7 @@ function Header() {
                 Country
               </button>
               {showCountries && (
-                <div className="mt-2 mx-5 shadow flex flex-col gap-1 max-h-40 overflow-y-auto">
+                <div className="mt-2 mx-5 shadow flex flex-col gap-1 max-h-60 overflow-y-auto">
                   {countries.map((c) => (
                     <button
                       key={c.strArea}
@@ -178,27 +210,8 @@ function Header() {
             </Link>
           </div>
         )}
-
-        
       </div>
-       {showCategories && (
-                <div className="bg-gray-50 border-t px-4 py-4 overflow-x-auto flex gap-4">
-                  {categories.map((cat) => (
-                    <div
-                      key={cat.idCategory}
-                      onClick={() => handleCategoryClick(cat.strCategory)}
-                      className="cursor-pointer flex flex-col items-center hover:scale-105 transition"
-                    >
-                      <img
-                        src={cat.strCategoryThumb}
-                        alt={cat.strCategory}
-                        className="w-20 h-20 object-cover rounded-full border"
-                      />
-                      <p className="text-sm mt-2">{cat.strCategory}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
+
       <div className="block md:hidden m-2">
         <SearchBar />
       </div>

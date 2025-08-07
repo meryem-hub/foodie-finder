@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/Buttons/button";
 import MealCard from "@/components/MealCard";
 import CategoryFilter from "@/components/CategoryFilter";
-import { getMealsByFirstLetter, getMealsByCategory, getMealsByCountry } from "@/services/mealApi";
+import { getMealsByFirstLetter, getMealsByCategory, getMealsByCountry, getMealsByIngredient, getMealsByName } from "@/services/mealApi";
 import { ArrowRight } from "lucide-react";
 
 const Home = () => {
@@ -22,25 +22,38 @@ const Home = () => {
 
   useEffect(() => {
     const fetchFeaturedMeals = async () => {
-      setLoadingFeatured(true);
-      setErrorFeatured(null);
-      try {
-        let data;
-        if (searchTerm.trim()) {
-          data = await getMealsByCategory(searchTerm.trim());
-          if (!data || data.length === 0) {
-            data = await getMealsByCountry(searchTerm.trim());
-          }
-        } else {
-          data = await getMealsByFirstLetter("a");
-        }
-        setFeaturedMeals(data || []);
-      } catch (err) {
-        setErrorFeatured("Failed to fetch featured meals.");
-      } finally {
-        setLoadingFeatured(false);
+  setLoadingFeatured(true);
+  setErrorFeatured(null);
+
+  try {
+    let data = [];
+
+    if (searchTerm.trim()) {
+      data = await getMealsByCategory(searchTerm.trim());
+
+      if (!data || data.length === 0) {
+        data = await getMealsByCountry(searchTerm.trim());
       }
-    };
+
+      if (!data || data.length === 0) {
+        data = await getMealsByName(searchTerm.trim());
+      }
+
+      if (!data || data.length === 0) {
+        data = await getMealsByIngredient(searchTerm.trim());
+      }
+    } else {
+      data = await getMealsByFirstLetter("a");
+    }
+
+    setFeaturedMeals(data || []);
+  } catch {
+    setErrorFeatured("Failed to fetch featured meals.");
+  } finally {
+    setLoadingFeatured(false);
+  }
+};
+
     fetchFeaturedMeals();
   }, [searchTerm]);
 
@@ -51,7 +64,7 @@ const Home = () => {
       try {
         const data = await getMealsByCategory(selectedCategory);
         setCategoryMeals(data || []);
-      } catch (err) {
+      } catch  {
         setErrorCategory("Failed to fetch meals for category.");
       } finally {
         setLoadingCategory(false);
