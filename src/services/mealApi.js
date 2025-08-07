@@ -11,6 +11,15 @@ export const getMealsByFirstLetter = async (letter) => {
     return [];
   }
 };
+export const getMealCategories = async () => {
+  try {
+    const response = await axios.get("https://www.themealdb.com/api/json/v1/1/categories.php");
+    return response.data.categories;
+  } catch (error) {
+    console.error("Error fetching meal categories:", error);
+    return [];
+  }
+};
 
 export const getMealById = async (id) => {
   try {
