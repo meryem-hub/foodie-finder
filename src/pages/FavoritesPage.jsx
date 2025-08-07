@@ -23,11 +23,10 @@ const FavoritesPage = () => {
         );
     }
 
-    const meals = Array.from(favoriteMeals.values())
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-2xl font-bold mb-6">Your Favorite Meals</h1>
-            <FavoritesList meals={meals} />
+            <FavoritesList meals={Object.values(favoriteMeals)} />
         </div>
     );
 };

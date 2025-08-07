@@ -23,15 +23,10 @@ export const getMealById = async (id) => {
 };
 
 export const getMealsListById = async (ids) => {
-  const meals = [];
   try {
-    for(const id of ids) {
-      const meal = await getMealById(id);
-      if (meal) {
-        meals.push(meal);
-      }
-    }
-    return meals;
+    const promises = ids.map(id => getMealById(id));
+    const results = await Promise.all(promises);
+    return results;
   }
   catch(error){
     console.error("Error fetching meals list by IDs:", error);

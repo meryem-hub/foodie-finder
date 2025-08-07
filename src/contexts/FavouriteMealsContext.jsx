@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { getMealsListById } from "@/services/mealApi";
 
 export const FavoriteMealsContext = createContext({
     favoriteMeals: {},
@@ -8,20 +9,25 @@ export const FavoriteMealsContext = createContext({
     error : null,
 });
 
-export const FavoriteMealsProvider = ({ children }) => {
+export const FavoriteMealsContextProvider = ({ children }) => {
     const [favoriteMeals, setFavoriteMeals] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const fetchMeals = async (favoriteIds) => {
+        setLoading(true);
+        setError(null);
         try {
             const data = await getMealsListById(favoriteIds);
+            console.log("data", data)
             const favMeals = data.reduce((acc, meal) => {
                 if (meal) {
-                    acc[meal.isMeal] = meal;
+                    console.log("meal id: ", meal.idMeal)
+                    acc[meal.idMeal] = meal;
                 }
                 return acc;
             }, {});
+            console.log("Fetched favorite meals:", favMeals);
             setFavoriteMeals(favMeals);
         } catch (err) {
             setError("Failed to fetch meals.");
@@ -31,19 +37,19 @@ export const FavoriteMealsProvider = ({ children }) => {
         }
     };
 
-    
-    const storeFavoriteMeals = (favoriteMeals) => {
-        localStorage.setItem("favorites", JSON.stringify(favoriteMeals));
+    const updateStoredFavoriteMeals = (favoriteMeals) => {
+        localStorage.setItem("favorites", JSON.stringify(Object.keys(favoriteMeals)));
     };
 
     useEffect(() => {
         const favoriteIds = JSON.parse(localStorage.getItem("favorites")) || [];
+        console.log("favoriteIds: ", favoriteIds)
         fetchMeals(favoriteIds);
     }, []);
 
     return (
         <FavoriteMealsContext.Provider
-            value={{ favoriteMeals, setFavoriteMeals, storeFavoriteMeals, loading, error }}
+            value={{ favoriteMeals, setFavoriteMeals, updateStoredFavoriteMeals, loading, error }}
         >
             {children}
         </FavoriteMealsContext.Provider>

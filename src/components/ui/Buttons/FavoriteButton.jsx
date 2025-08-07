@@ -6,25 +6,26 @@ import { FavoriteMealsContext } from "@/contexts/FavouriteMealsContext";
 export const FavoriteButton = ({ meal }) => {
     const mealId = meal.idMeal;
 
-    const { favoriteMeals, setFavoriteMeals, storeFavoriteMeals } =
+    const { favoriteMeals, setFavoriteMeals, updateStoredFavoriteMeals } =
         useContext(FavoriteMealsContext);
 
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
+        console.log("favoriteMeals:", favoriteMeals);
         setIsFavorite(Boolean(favoriteMeals[mealId]));
-    }, [mealId]);
+    }, [mealId, favoriteMeals]);
 
     const toggleFavorite = () => {
         setFavoriteMeals(prev=>{
           let updated = {...prev};
-          if(favoriteMeals[mealId]){
-            delete favoriteMeals[mealId]
+          if(updated[mealId]){
+            delete updated[mealId]
           }
           else{
               updated[mealId] = meal
           }
-          storeFavoriteMeals(updated.values())
+          updateStoredFavoriteMeals(updated)
           return updated;
         })
         setIsFavorite(!isFavorite);

@@ -8,14 +8,16 @@ import FavoritesPage from './pages/FavoritesPage';
 import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 
+import { FavoriteMealsContextProvider } from './contexts/FavouriteMealsContext';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
-        <Routes>
-          <Route path="/" element={
-            <>
+      <FavoriteMealsContextProvider>
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
+          <Routes>
+            <Route path="/" element={
+              <>
               <HeroSection />
               <Home />
             </>
@@ -27,6 +29,7 @@ function App() {
         </Routes>
       </div>
       <Footer/>
+      </FavoriteMealsContextProvider>
     </Router>
   );
 }

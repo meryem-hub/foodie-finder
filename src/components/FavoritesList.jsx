@@ -13,7 +13,7 @@ export const FavoritesList = ({ meals }) => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-flow-dense justify-center gap-6">
             {favoriteMeals.map((meal) => (
                 <MealCard key={meal.idMeal} meal={meal} />
             ))}

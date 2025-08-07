@@ -141,7 +141,7 @@ const MealDetail = () => {
                         {/* Action buttons  */}
                         <div className="flex gap-4">
                             <div className="flex gap-4">
-                                <FavoriteButton mealId={meal.idMeal} />
+                                <FavoriteButton meal={meal} />
                                 <ShareButton />
                             </div>
                         </div>
