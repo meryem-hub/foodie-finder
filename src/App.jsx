@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import h from '@/pages/h'
 import Home from '@/pages/Home';
 import RecipesPage from '@/pages/RecipesPage';
 import HeroSection from './components/Hero';
@@ -22,7 +21,8 @@ function App() {
             </>
           } />
           <Route path="/recipes" element={<RecipesPage />} />
-          <Route path="/meals/:id" element={<MealDetail />} />
+<Route path="/meals/:id" element={<MealDetail />} />
+<Route path="/meals/random" element={<MealDetail />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path='*' element={<NotFound/>}/>
         </Routes>
