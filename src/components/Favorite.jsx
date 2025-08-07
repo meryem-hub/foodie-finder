@@ -21,7 +21,7 @@ function Favorites() {
     <section className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex items-center justify-center mb-9 gap-2">
         <Heart className="w-9 h-9 stroke-red-500 fill-red-500" />
-      <h1 className="text-4xl font-extrabold text-center text-orange-500 ">
+      <h1 className="text-4xl font-extrabold text-center text-[#FFD700] ">
          My Favorite Meals
       </h1>
       </div>

@@ -5,7 +5,6 @@ import SearchBar from "./SearchBar";
 import {
   getCategories,
   getCountries,
-  getMealsByCategory,
 } from "../services/mealApi";
 
 function Header() {
@@ -26,12 +25,12 @@ function Header() {
     fetchData();
   }, []);
 
-  const handleCategoryClick = async (cat) => {
-    setShowCategories(false);
-    setMobileMenuOpen(false);
-    const meals = await getMealsByCategory(cat);
-    navigate("/recipes", { state: { meals, title: `Category: ${cat}` } });
-  };
+  const handleCategoryClick = (cat) => {
+  setShowCategories(false);
+  setMobileMenuOpen(false);
+  navigate(`/?search=${cat}`);
+};
+
 
   const handleCountryClick = (country) => {
     setShowCountries(false);
@@ -58,7 +57,7 @@ function Header() {
             <div>
               <button
                 onClick={() => setShowCategories(!showCategories)}
-                className="w-full text-left hover:text-orange-500"
+                className="w-full text-left hover:text-[#FFD700]"
               >
                 Category
               </button>
@@ -85,7 +84,7 @@ function Header() {
                     <button
                       key={c.strArea}
                       onClick={() => handleCountryClick(c.strArea)}
-                      className="block w-full text-left px-2 py-1 hover:bg-orange-100 rounded"
+                      className="block w-full text-left px-2 py-1 hover:text-[#FFD700] rounded"
                     >
                       {c.strArea}
                     </button>
@@ -94,7 +93,7 @@ function Header() {
               )}
             </div>
 
-            <Link to="/favorites" className="hover:text-orange-500">
+            <Link to="/favorites" className="hover:text-[#FFD700]">
               Favorites
             </Link>
           </nav>
@@ -116,7 +115,7 @@ function Header() {
           <div className="md:hidden bg-white border-t shadow-lg p-4 space-y-4">
             <Link
               to="/"
-              className="block hover:text-orange-500"
+              className="block hover:text-[#FFD700]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
@@ -151,7 +150,7 @@ function Header() {
             <div>
               <button
                 onClick={() => setShowCountries(!showCountries)}
-                className="w-full text-left hover:text-orange-500"
+                className="w-full text-left hover:text-[#FFD700]"
               >
                 Country
               </button>
@@ -161,7 +160,7 @@ function Header() {
                     <button
                       key={c.strArea}
                       onClick={() => handleCountryClick(c.strArea)}
-                      className="text-left hover:bg-orange-100 rounded px-2 py-1"
+                      className="text-left hover:bg-[#FFD700] rounded px-2 py-1"
                     >
                       {c.strArea}
                     </button>
@@ -172,7 +171,7 @@ function Header() {
 
             <Link
               to="/favorites"
-              className="block hover:text-orange-500"
+              className="block hover:text-[#FFD700]"
               onClick={() => setMobileMenuOpen(false)}
             >
               Favorites

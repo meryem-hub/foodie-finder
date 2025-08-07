@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import MealCard from "@/components/MealCard";
-import { getMealsByFirstLetter, getMealsByCategory } from "@/services/mealApi";
+import { getMealsByFirstLetter, getMealsByCategory, getMealsByCountry } from "@/services/mealApi";
 import { ArrowRight } from "lucide-react";
 
 const Home = () => {
@@ -14,26 +14,36 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchMeals = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        let data;
-        if (searchTerm.trim()) {
-          data = await getMealsByCategory(searchTerm.trim());
-        } else {
-          data = await getMealsByFirstLetter("a");
+
+useEffect(() => {
+  const fetchMeals = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      let data;
+
+      if (searchTerm.trim()) {
+        // Try category first
+        data = await getMealsByCategory(searchTerm.trim());
+
+        // If no data, try country
+        if (!data || data.length === 0) {
+          data = await getMealsByCountry(searchTerm.trim());
         }
-        setMeals(data || []);
-      } catch {
-        setError("Failed to fetch meals.");
-      } finally {
-        setLoading(false);
+      } else {
+        data = await getMealsByFirstLetter("a");
       }
-    };
-    fetchMeals();
-  }, [searchTerm]);
+
+      setMeals(data || []);
+    } catch {
+      setError("Failed to fetch meals.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchMeals();
+}, [searchTerm]);
+
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
