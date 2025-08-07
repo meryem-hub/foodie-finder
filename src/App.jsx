@@ -6,6 +6,7 @@ import RecipesPage from '@/pages/RecipesPage';
 import HeroSection from './components/Hero';
 import MealDetail from './pages/MealDetail';
 import FavoritesPage from './pages/FavoritesPage';
+import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </div>
+      <Footer/>
     </Router>
   );
 }

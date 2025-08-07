@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Globe, Clock, Shuffle, Flag, Tag, Heart } from "lucide-react";
 import { Button } from "@/components/ui/Buttons/button";
 import heroImage from "../assets/images/image.png";
 
 const getRandomMeal = async () => {
   try {
-    const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+    const response = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/random.php"
+    );
     const data = await response.json();
     return data.meals ? data.meals[0] : null;
   } catch (error) {
@@ -14,13 +17,13 @@ const getRandomMeal = async () => {
   }
 };
 
-const IngredientsSection = ({ meal }) => {
+const IngredientsSection = ({ meal }: { meal: any }) => {
   if (!meal) return null;
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
     const ingredient = meal[`strIngredient${i}`];
     const measure = meal[`strMeasure${i}`];
-    if (ingredient) {
+    if (ingredient && ingredient.trim() !== "") {
       ingredients.push({ ingredient, measure });
     }
   }
@@ -38,7 +41,7 @@ const IngredientsSection = ({ meal }) => {
   );
 };
 
-const VideoSection = ({ url }) => {
+const VideoSection = ({ url }: { url?: string }) => {
   if (!url) return null;
   return (
     <div className="mt-8">
@@ -56,7 +59,7 @@ const VideoSection = ({ url }) => {
   );
 };
 
-const InstructionsSection = ({ instructions }) => {
+const InstructionsSection = ({ instructions }: { instructions?: string }) => {
   if (!instructions) return null;
   return (
     <div className="mt-8">
@@ -67,10 +70,11 @@ const InstructionsSection = ({ instructions }) => {
 };
 
 const HeroSection = () => {
-  const [showMeal, setShowMeal] = useState(false);
-  const [meal, setMeal] = useState(null);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [meal, setMeal] = useState<any | null>(null);
+  const [showMeal, setShowMeal] = useState(false);
 
   const handleSurpriseMeClick = async () => {
     setLoading(true);
@@ -78,10 +82,14 @@ const HeroSection = () => {
     setShowMeal(false);
 
     try {
+      // Artificial delay for UX
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const randomMeal = await getRandomMeal();
       if (randomMeal) {
         setMeal(randomMeal);
         setShowMeal(true);
+        // Navigate to detailed page if needed:
+        // navigate(`/meals/${randomMeal.idMeal}?random=true`);
       } else {
         setError("No random meal found. Please try again.");
       }
@@ -156,13 +164,17 @@ const HeroSection = () => {
                     />
                   ) : (
                     <div className="w-full h-64 flex items-center justify-center bg-gray-100 rounded-lg border-4 border-yellow-500 shadow-lg">
-                      <span className="text-gray-400 text-center">No image available</span>
+                      <span className="text-gray-400 text-center">
+                        No image available
+                      </span>
                     </div>
                   )}
                 </div>
 
                 <div className="flex flex-col gap-6">
-                  <h1 className="text-4xl font-bold">{meal?.strMeal || "Meal Name Unavailable"}</h1>
+                  <h1 className="text-4xl font-bold">
+                    {meal?.strMeal || "Meal Name Unavailable"}
+                  </h1>
 
                   <div className="flex flex-wrap gap-2 text-sm font-medium">
                     {meal?.strArea && (
@@ -185,6 +197,7 @@ const HeroSection = () => {
                       Add to Favorites
                     </button>
                   </div>
+
                   <IngredientsSection meal={meal} />
                 </div>
               </div>
@@ -196,36 +209,38 @@ const HeroSection = () => {
         </main>
       )}
 
-    <section className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gray-50">
-  <div className="max-w-3xl mb-12">
-    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-      Explore a World of Flavors 
-    </h2>
-    <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
-      Browse our extensive collection of recipes from across the globe, find your next favorite dish, and cook with confidence using our easy-to-follow instructions.
-    </p>
-  </div>
+      <section className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gray-50">
+        <div className="max-w-3xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+            Explore a World of Flavors
+          </h2>
+          <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
+            Browse our extensive collection of recipes from across the globe, find
+            your next favorite dish, and cook with confidence using our
+            easy-to-follow instructions.
+          </p>
+        </div>
 
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
-    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
-      <Search className="w-14 h-14 text-yellow-500 mb-4" />
-      <h3 className="text-3xl font-bold text-gray-800">1000+ Recipes</h3>
-      <p className="text-gray-500 mt-2">from every corner of the world</p>
-    </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+          <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+            <Search className="w-14 h-14 text-yellow-500 mb-4" />
+            <h3 className="text-3xl font-bold text-gray-800">1000+ Recipes</h3>
+            <p className="text-gray-500 mt-2">from every corner of the world</p>
+          </div>
 
-    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
-      <Globe className="w-14 h-14 text-orange-500 mb-4" />
-      <h3 className="text-3xl font-bold text-gray-800">25+ Countries</h3>
-      <p className="text-gray-500 mt-2">savor international cuisine</p>
-    </div>
+          <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+            <Globe className="w-14 h-14 text-orange-500 mb-4" />
+            <h3 className="text-3xl font-bold text-gray-800">25+ Countries</h3>
+            <p className="text-gray-500 mt-2">savor international cuisine</p>
+          </div>
 
-    <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
-      <Clock className="w-14 h-14 text-red-500 mb-4" />
-      <h3 className="text-3xl font-bold text-gray-800">Step-by-step</h3>
-      <p className="text-gray-500 mt-2">detailed, easy instructions</p>
-    </div>
-  </div>
-</section>
+          <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200">
+            <Clock className="w-14 h-14 text-red-500 mb-4" />
+            <h3 className="text-3xl font-bold text-gray-800">Step-by-step</h3>
+            <p className="text-gray-500 mt-2">detailed, easy instructions</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
