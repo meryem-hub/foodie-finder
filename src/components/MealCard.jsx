@@ -1,8 +1,7 @@
-// src/components/MealCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Buttons/button';
 import { ChefHat, Flag, Tag } from 'lucide-react';
 
 const MealCard = ({ meal }) => {
@@ -12,7 +11,6 @@ const MealCard = ({ meal }) => {
 
   return (
     <Card className="max-w-xs overflow-hidden rounded-xl border-2 border-yellow-500 transition-all duration-500 ease-in-out transform hover:shadow-lg hover:translate-y-[-5px] group">
-
       {/* Title Section */}
       <div className="p-4 flex flex-col items-start gap-1">
         <h3 className="text-xl font-bold truncate w-full text-gray-900 dark:text-white mb-2">
@@ -29,7 +27,6 @@ const MealCard = ({ meal }) => {
         />
       </div>
 
-      {/* Origin & Category Section with Icons */}
       <CardContent className="px-4 py-2">
         <div className="flex flex-wrap gap-2 text-sm font-medium">
           {strArea && (
